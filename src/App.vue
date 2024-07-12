@@ -1,20 +1,23 @@
 <template>
   <div>
-    <AddClientForm/>
+    <AddClientForm />
   </div>
 </template>
 
 <script>
-import AddClientForm from './components/AddClientForm.vue'
+import AddClientForm from "./components/AddClientForm.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    AddClientForm
-  }
-}
+    AddClientForm,
+  },
+};
 </script>
 
-<style>
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap')
 
+*
+  font-family: 'Roboto', sans-serif
 </style>

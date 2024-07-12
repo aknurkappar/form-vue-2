@@ -1,17 +1,16 @@
 <template>
   <div class="">
-  hello
+    <h2>Добавить клиента</h2>
+    <UIInput label="Фамилия" placeholder="Ввидите фамилия клиента" required />
   </div>
 </template>
 
 <script>
+import UIInput from "./UI/UIInput.vue";
 export default {
-  name: 'AddClientForm',
-}
+  name: "AddClientForm",
+  components: { UIInput },
+};
 </script>
 
-
-<style scoped>
-
-
-</style>
+<style lang="sass"></style>
