@@ -23,7 +23,15 @@
         label="Отчество"
         placeholder="Введите отчеству"
       />
-      <UIInput label="Дата рождения" placeholder="ДД / ММ / ГГГГ" />
+      <UIInput
+        v-model="newUser.dateOfBirth"
+        :v="v$.newUser.dateOfBirth"
+        label="Дата рождения"
+        placeholder="ДД / ММ / ГГГГ"
+        mask="##/##/####"
+        required
+      />
+      <RadioSelector :options="[]" />
     </section>
 
     <section>
@@ -33,6 +41,7 @@
         label="Номер телефона"
         placeholder="+7 777 777 77 77"
         required
+        mask="+7 (###) ### ## ##"
       />
       <UIInput label="Индекс" placeholder="Ввидите фамилия клиента" />
       <!-- Страна selector -->
@@ -54,24 +63,30 @@
 <script>
 import UIInput from "./UI/UIInput.vue";
 import UIButton from "./UI/UIButton.vue";
+import RadioSelector from "./UI/RadioSelector.vue";
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, helpers } from "@vuelidate/validators";
 
 export default {
   name: "AddClientForm",
-  components: { UIInput, UIButton },
+  components: { UIInput, UIButton, RadioSelector },
   setup: () => ({ v$: useVuelidate() }),
   mounted() {
-    console.log(this.v$.newUser.phone.required);
+    console.log("mounted", this.v$.newUser.dateOfBirth.$invalid);
   },
   data() {
     return {
       newUser: {
-        lastName: "Aknur",
-        firstName: "",
-        middleName: "",
-        phone: "",
+        lastName: null,
+        firstName: null,
+        middleName: null,
+        phone: null,
+        dateOfBirth: null,
       },
+      genderOptions: [
+        { key: "male", name: "Male" },
+        { key: "female", name: "Female" },
+      ],
     };
   },
   validations() {
@@ -80,17 +95,29 @@ export default {
         lastName: { required },
         firstName: { required },
         phone: { required },
+        dateOfBirth: {
+          required,
+          isValid: helpers.withMessage(
+            "Пожалуйста, укажите правильную дату",
+            function (value) {
+              return /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(
+                value
+              );
+            }
+          ),
+        },
       },
     };
   },
   methods: {
     onSubmit() {
+      this.v$.$touch();
+      if (this.v$.$invalid) {
+        console.log("Form is invalid");
+        return;
+      }
+      console.log("Form is valid");
       console.log("onSubmit", this.newUser);
-    },
-  },
-  watch: {
-    newUser() {
-      console.log(this.newUser);
     },
   },
 };

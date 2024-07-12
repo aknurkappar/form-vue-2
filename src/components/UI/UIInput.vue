@@ -8,23 +8,25 @@
       :value="value"
       :type="type"
       :placeholder="placeholder"
+      :class="{ 'input-error': v && v.$error }"
+      v-mask="mask"
       @input="handleChange($event)"
     />
-    <!-- v-if="(v && !v.required && v.$dirty) || errorMessage" -->
-    <span class="error">
-      {{ errorMessage ? errorMessage : "Заполните это поле" }}
+
+    <span
+      class="error-message"
+      v-if="v && v.$dirty && v.isValid.$invalid && v.isValid.$message"
+    >
+      {{ v.isValid.$message }}
     </span>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   name: "UIInput",
   props: {
-    value: {
-      type: String,
-      default: "",
-    },
+    value: String,
     type: {
       type: String,
       default: "text",
@@ -35,6 +37,7 @@ export default {
     placeholder: {
       type: String,
     },
+    mask: String,
     required: { type: Boolean, default: false },
     errorMessage: {
       type: String,
@@ -58,6 +61,7 @@ export default {
     flex-direction: column
     gap: 4px
     max-width: 300px
+    position: relative
 
 
 input
@@ -79,15 +83,35 @@ input:focus
 input:placeholder
     color: $grey
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+input[type=number]
+  -moz-appearance: textfield
+
 label
     font-size: 12px
     color: $blue-dark
     font-weight: 400
 
 .required-icon
-    color: $error
+    color: $red
 
-.error
-  color: $error
+.error-message
+  color: $red
   font-size: 10px
+
+.input-error
+  margin: 0
+  border: 1.5px solid $red
+
+.warning
+  filter: $filter-red
+  width: 16px
+  height: 16px
+  position: absolute
+  right: -20px
+  top: calc(100% / 2)
 </style>
