@@ -15,7 +15,14 @@
 
     <span
       class="error-message"
-      v-if="v && v.$dirty && v.isValid.$invalid && v.isValid.$message"
+      v-if="
+        value &&
+        v &&
+        v.$dirty &&
+        v.isValid &&
+        v.isValid.$invalid &&
+        v.isValid.$message
+      "
     >
       {{ v.isValid.$message }}
     </span>
