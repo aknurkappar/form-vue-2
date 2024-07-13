@@ -1,0 +1,31 @@
+@use "@/assets/style/variables.sass" as *
+.flex
+  display: flex
+
+.flex-column
+  display: flex
+  flex-direction: column
+
+.gap-16
+  gap: 16px
+
+.gap-50
+  gap: 50px
+
+.form-button
+  display: flex
+  justify-content: flex-end
+  @media (max-width: $phone)
+    justify-content: center
+    button
+      width: 100%
+
+.grid-2
+  display: grid
+  grid-template-columns: 350px 350px
+  grid-gap: 36px
+  @media (max-width: $tablet)
+    grid-template-columns: auto
+
+  @media (max-width: $phone)
+    grid-template-columns: auto

@@ -3,8 +3,8 @@
     <h2>Добавить клиента</h2>
     <section>
       <h4>Основные данные</h4>
-      <div class="form-container">
-        <div class="form-container-sub">
+      <div class="grid-2">
+        <div class="flex-column gap-16">
           <UIInput
             v-model="newUser.lastName"
             :v="v$.newUser.lastName"
@@ -34,7 +34,7 @@
             required
           />
         </div>
-        <div class="form-container-sub">
+        <div class="flex-column gap-16">
           <UIInput
             v-model="newUser.dateOfBirth"
             :v="v$.newUser.dateOfBirth"
@@ -54,8 +54,8 @@
 
     <section>
       <h4>Адрес проживания</h4>
-      <div class="form-container">
-        <div class="form-container-sub">
+      <div class="grid-2">
+        <div class="flex-column gap-16">
           <UISelect
             :options="countries"
             v-model="newUser.country"
@@ -76,7 +76,7 @@
             required
           />
         </div>
-        <div class="form-container-sub">
+        <div class="flex-column gap-16">
           <UIInput
             v-model="newUser.zipcCode"
             :v="v$.newUser.zipcCode"
@@ -95,15 +95,52 @@
 
     <section>
       <h4>Данные личного документа</h4>
-      <UIInput label="Фамилия" placeholder="Ввидите фамилия клиента" />
-      <UISelect
-        :options="countries"
-        label="Страна"
-        placeholder="Выберите страну"
-      />
+      <div class="grid-2">
+        <div class="flex-column gap-16">
+          <UISelect
+            :options="documentTypes"
+            v-model="newUser.document.type"
+            label="Тип документа"
+            placeholder="Выберите тип документа"
+          />
+          <div class="flex gap-16">
+            <UIInput
+              v-model="newUser.document.series"
+              :v="v$.newUser.document.series"
+              label="Серия"
+              placeholder="Серия"
+              className="w-80"
+            />
+            <UIInput
+              v-model="newUser.document.number"
+              :v="v$.newUser.document.number"
+              label="Номер"
+              placeholder="Номер"
+              className="w-120"
+            />
+          </div>
+        </div>
+        <div class="flex-column gap-16">
+          <UIInput
+            v-model="newUser.document.issuedBy"
+            :v="v$.newUser.document.issuedBy"
+            label="Кем выдан"
+            placeholder="Ввидите кем выдан документ"
+          />
+          <UIInput
+            v-model="newUser.document.issuedDate"
+            :v="v$.newUser.document.issuedDate"
+            label="Дата выдачи"
+            placeholder="ДД / ММ / ГГГГ"
+            mask="##/##/####"
+            required
+          />
+        </div>
+      </div>
     </section>
-
-    <UIButton type="submit" className="gradient">Добавить</UIButton>
+    <div class="form-button">
+      <UIButton type="submit" className="gradient">Добавить</UIButton>
+    </div>
   </form>
 </template>
 
@@ -115,6 +152,8 @@ import RadioSelect from "./UI/RadioSelect.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { countries } from "../../helpers/countries";
+import { DMYFormat } from "../../helpers/validators/date";
+import { OnlyAlphaAndNumbers } from "../../helpers/validators/type";
 
 export default {
   name: "AddClientForm",
@@ -135,11 +174,23 @@ export default {
         city: null,
         zipcCode: null,
         address: null,
+        document: {
+          type: null,
+          series: null,
+          number: null,
+          issuedBy: null,
+          issuedDate: null,
+        },
       },
       genderOptions: [
         { key: "male", name: "Мужчина" },
         { key: "female", name: "Женщина" },
         { key: "none", name: "Не указывать" },
+      ],
+      documentTypes: [
+        { key: "passport", name: "Паспорт" },
+        { key: "birthCertificate", name: "Свидетельство о рождении" },
+        { key: "driverLicense", name: "Вод. удостоверение" },
       ],
       countries: countries,
     };
@@ -152,14 +203,7 @@ export default {
         phone: { required },
         dateOfBirth: {
           required,
-          isValid: helpers.withMessage(
-            "Пожалуйста, укажите правильную дату",
-            function (value) {
-              return /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(
-                value
-              );
-            }
-          ),
+          isValid: DMYFormat,
         },
         city: {
           required,
@@ -169,6 +213,19 @@ export default {
               return /^[\p{L}\s,-]+$/u.test(value);
             }
           ),
+        },
+        document: {
+          type: { required },
+          series: {
+            isValid: OnlyAlphaAndNumbers,
+          },
+          number: {
+            isValid: OnlyAlphaAndNumbers,
+          },
+          issuedDate: {
+            required,
+            isValid: DMYFormat,
+          },
         },
       },
     };
@@ -205,10 +262,20 @@ export default {
 @use "@/assets/style/variables.sass" as *
 
 .add-client
-  margin: 30px 100px
+  margin: 30px 5%
   display: flex
   flex-direction: column
   gap: 14px
+  min-width: max-content
+
+  @media (max-width: $tablet)
+    margin: 20px 5%
+
+  @media (max-width: $phone)
+    margin: 20px 0
+    justify-content: center
+    align-content: center
+
   section
     padding: 30px
     background: $grey-light
@@ -217,18 +284,10 @@ export default {
     flex-direction: column
     gap: 14px
 
+
     border-radius: 10px
 
     h4
       color: $blue-dark
       line-height: 0px
-
-.form-container
-  display: grid
-  grid-template-columns: 350px 350px
-  grid-gap: 4px
-  &-sub
-    display: flex
-    flex-direction: column
-    gap: 14px
 </style>

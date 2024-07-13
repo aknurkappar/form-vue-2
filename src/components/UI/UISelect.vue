@@ -72,15 +72,14 @@ export default {
 .select
     position: relative
     max-width: 300px
+    width: 100%
     &-content
       position: absolute
-      top: calc( 100% / 2 + 44px )
-
-      width: 100%
+      top: calc( 100% / 2 + 35px )
 
       display: flex
       flex-direction: column
-
+      width: 100%
       background: #fff
       border: 1px solid $grey
       border-radius: 10px

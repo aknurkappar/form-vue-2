@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div :class="['container']">
     <label>
       {{ label }}
       <span v-if="required" class="required-icon">*</span>
@@ -8,7 +8,7 @@
       :value="value"
       :type="type"
       :placeholder="placeholder"
-      :class="{ 'input-error': v && v.$error }"
+      :class="[v && v.$error && 'input-error', className]"
       v-mask="mask"
       @input="handleChange($event)"
     />
@@ -51,10 +51,12 @@ export default {
       default: "",
     },
     v: Object,
+    className: String,
   },
   methods: {
     handleChange(event) {
-      this.$emit(`input`, event.target.value);
+      const newValue = event.target.value == "none" ? null : event.target.value;
+      this.$emit(`input`, newValue);
     },
   },
 };
@@ -67,17 +69,19 @@ export default {
     display: flex
     flex-direction: column
     gap: 4px
+    width: fit-content
     max-width: 300px
     position: relative
 
-
 input
-    height: 30px
+    height: 40px
     padding: 4px 10px
     margin: 0.5px
-
+    width: 300px
     border-radius: 10px
     border: 1px solid $grey
+
+    box-sizing: border-box
 
     font-size: 14px
     font-weight: 400
@@ -121,4 +125,12 @@ label
   position: absolute
   right: -20px
   top: calc(100% / 2)
+
+.w-80
+  min-width: 80px
+  width: 80px
+
+.w-120
+  min-width: 120px
+  width: 80px
 </style>

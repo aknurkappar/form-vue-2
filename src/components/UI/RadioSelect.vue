@@ -58,6 +58,8 @@ export default {
       display: grid
       grid-template-columns: auto auto
       grid-gap: 4px
+      @media (max-width: $phone)
+        grid-template-columns: auto
     &-label
       font-size: 12px
       color: $blue-dark
