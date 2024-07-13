@@ -34,6 +34,9 @@
               mask="+7 (###) ### ## ##"
               required
             />
+            <UICheckbox v-model="newUser.isSendSMSAllowed"
+              >Разрешить отправку SMS</UICheckbox
+            >
           </div>
           <div class="flex-column gap-16">
             <UIInput
@@ -163,12 +166,14 @@ import UIButton from "./UI/UIButton.vue";
 import UISelect from "./UI/UISelect.vue";
 import RadioSelect from "./UI/RadioSelect.vue";
 import UIModal from "./UI/UIModal.vue";
+import UICheckbox from "./UI/UICheckbox.vue";
 import SuccessMessage from "./SuccessMessage.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { countries } from "../../helpers/countries";
 import { DMYFormat } from "../../helpers/validators/date";
 import { OnlyAlphaAndNumbers } from "../../helpers/validators/type";
+import { unformatPhoneNumber } from "../../helpers/formatters/unformatPhoneNumber";
 
 function createNewUser() {
   return {
@@ -176,6 +181,7 @@ function createNewUser() {
     firstName: null,
     middleName: null,
     phone: null,
+    isSendSMSAllowed: true,
     dateOfBirth: null,
     gender: null,
     country: null,
@@ -200,6 +206,7 @@ export default {
     UIButton,
     UISelect,
     UIModal,
+    UICheckbox,
     RadioSelect,
     SuccessMessage,
   },
@@ -271,7 +278,8 @@ export default {
       if (this.v$.$invalid) return;
 
       this.isSuccessMessageActive = true;
-      console.log("Submitted:", this.newUser);
+      this.newUser.phone = unformatPhoneNumber(this.newUser.phone);
+      console.log("New client created:", this.newUser);
     },
     closeSuccessMessageModal() {
       this.isSuccessMessageActive = false;

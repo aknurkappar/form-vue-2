@@ -8,7 +8,7 @@
           :value="option.key"
           v-model="selected"
           :checked="option.key == selected"
-          @change="handleChange($event)"
+          @change="handleChange"
         />
         {{ option.name }}
       </label>
@@ -33,11 +33,8 @@ export default {
     };
   },
   methods: {
-    handleChange(event) {
-      this.$emit(
-        "input",
-        this.selected === event.target.value ? null : this.selected
-      );
+    handleChange() {
+      this.$emit("input", this.selected);
     },
   },
 };
