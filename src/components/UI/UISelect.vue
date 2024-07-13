@@ -1,17 +1,21 @@
 <template>
   <div class="select">
-    <p class="select-label">{{ label }}</p>
+    <p class="select-label">
+      {{ label }} <span v-if="required" class="required-icon">*</span>
+    </p>
     <div
       :class="[
         'select-placeholder',
         isOpen && 'select-placeholder-open',
         selected && 'select-placeholder-selected',
         (disabled || !options) && 'select-placeholder-disabled',
+        v && v.$error && 'select-placeholder-error',
       ]"
       @click="toggle"
     >
       {{ currentPlaceholder }}
     </div>
+
     <div v-if="isOpen" class="select-content">
       <div
         v-for="option in options"
@@ -33,10 +37,12 @@ export default {
     value: String,
     label: String,
     disabled: Boolean,
+    required: Boolean,
     placeholder: {
       type: String,
       required: true,
     },
+    v: Object,
   },
   data() {
     return {
@@ -117,12 +123,15 @@ export default {
       color: $grey-dark
       cursor: pointer
       &-open
-        margin: 0
+        margin: 0.2
         outline: none
-        border: 1.5px solid $blue-light
+        border: 1.3px solid $blue-light
       &-selected
         color: $black
       &-disabled
         pointer-events: none
         background: $grey-light
+      &-error
+        margin: 0.2
+        border: 1.3px solid $red
 </style>

@@ -88,9 +88,9 @@ input
     color: $black
 
 input:focus
-    margin: 0
+    margin: 0.2
     outline: none
-    border: 1.5px solid $blue-light
+    border: 1.3px solid $blue-light
 input:placeholder
     color: $grey
 
@@ -107,24 +107,13 @@ label
     color: $blue-dark
     font-weight: 400
 
-.required-icon
-    color: $red
-
 .error-message
   color: $red
   font-size: 10px
 
 .input-error
-  margin: 0
-  border: 1.5px solid $red
-
-.warning
-  filter: $filter-red
-  width: 16px
-  height: 16px
-  position: absolute
-  right: -20px
-  top: calc(100% / 2)
+  margin: 0.2
+  border: 1.25px solid $red
 
 .w-80
   min-width: 80px

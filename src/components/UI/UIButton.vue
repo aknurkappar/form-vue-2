@@ -1,5 +1,8 @@
 <template>
-  <button :type="type" :class="['button', className]">
+  <button
+    :type="type"
+    :class="['button', className, disabled && `${className}-disabled`]"
+  >
     <slot />
   </button>
 </template>
@@ -15,6 +18,7 @@ export default {
     className: {
       type: String,
     },
+    disabled: Boolean,
   },
 };
 </script>
@@ -42,5 +46,6 @@ button
 
 
 .gradient-disabled
+  pointer-events: none
   background: linear-gradient(283.34deg, rgba(68, 107, 137, 0.3) -42.82%, rgba(68, 107, 137, 0.375) 34.27%, rgba(68, 107, 137, 0.3) 100.02%)
 </style>

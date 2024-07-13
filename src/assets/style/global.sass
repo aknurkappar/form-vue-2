@@ -6,15 +6,28 @@
   display: flex
   flex-direction: column
 
+.flex-center
+  display: flex
+  justify-content: center
+  align-items: center
+
 .gap-16
   gap: 16px
 
 .gap-50
   gap: 50px
 
+.required-icon
+    color: $red
+
+.filter-grey
+  filter: $filter-grey
+
 .form-button
   display: flex
   justify-content: flex-end
+  button
+    width: 200px
   @media (max-width: $phone)
     justify-content: center
     button

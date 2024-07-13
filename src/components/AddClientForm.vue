@@ -1,147 +1,160 @@
 <template>
-  <form class="add-client" @submit.prevent="onSubmit">
-    <h2>Добавить клиента</h2>
-    <section>
-      <h4>Основные данные</h4>
-      <div class="grid-2">
-        <div class="flex-column gap-16">
-          <UIInput
-            v-model="newUser.lastName"
-            :v="v$.newUser.lastName"
-            label="Фамилия"
-            placeholder="Введите фамилию"
-            required
-          />
-          <UIInput
-            v-model="newUser.firstName"
-            :v="v$.newUser.firstName"
-            label="Имя"
-            placeholder="Введите имя"
-            required
-          />
-          <UIInput
-            v-model="newUser.middleName"
-            :v="v$.newUser.middleName"
-            label="Отчество"
-            placeholder="Введите отчеству"
-          />
-          <UIInput
-            v-model="newUser.phone"
-            :v="v$.newUser.phone"
-            label="Номер телефона"
-            placeholder="+7 777 777 77 77"
-            mask="+7 (###) ### ## ##"
-            required
-          />
-        </div>
-        <div class="flex-column gap-16">
-          <UIInput
-            v-model="newUser.dateOfBirth"
-            :v="v$.newUser.dateOfBirth"
-            label="Дата рождения"
-            placeholder="ДД / ММ / ГГГГ"
-            mask="##/##/####"
-            required
-          />
-          <RadioSelect
-            :options="genderOptions"
-            v-model="newUser.gender"
-            label="Пол"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h4>Адрес проживания</h4>
-      <div class="grid-2">
-        <div class="flex-column gap-16">
-          <UISelect
-            :options="countries"
-            v-model="newUser.country"
-            label="Страна"
-            placeholder="Выберите страну"
-          />
-          <UISelect
-            :options="regions"
-            v-model="newUser.region"
-            label="Область"
-            placeholder="Выберите область"
-          />
-          <UIInput
-            v-model="newUser.city"
-            :v="v$.newUser.city"
-            label="Город"
-            placeholder="Введите город"
-            required
-          />
-        </div>
-        <div class="flex-column gap-16">
-          <UIInput
-            v-model="newUser.zipcCode"
-            :v="v$.newUser.zipcCode"
-            label="Индекс"
-            placeholder="Ввидите почтовый индекс"
-          />
-          <UIInput
-            v-model="newUser.address"
-            :v="v$.newUser.address"
-            label="Адрес (Улица и дом)"
-            placeholder="например, ул. Ленина 123"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h4>Данные личного документа</h4>
-      <div class="grid-2">
-        <div class="flex-column gap-16">
-          <UISelect
-            :options="documentTypes"
-            v-model="newUser.document.type"
-            label="Тип документа"
-            placeholder="Выберите тип документа"
-          />
-          <div class="flex gap-16">
+  <div>
+    <form class="add-client" @submit.prevent="onSubmit">
+      <h2>Добавить клиента</h2>
+      <section>
+        <h4>Основные данные</h4>
+        <div class="grid-2">
+          <div class="flex-column gap-16">
             <UIInput
-              v-model="newUser.document.series"
-              :v="v$.newUser.document.series"
-              label="Серия"
-              placeholder="Серия"
-              className="w-80"
+              v-model="newUser.lastName"
+              :v="v$.newUser.lastName"
+              label="Фамилия"
+              placeholder="Введите фамилию"
+              required
             />
             <UIInput
-              v-model="newUser.document.number"
-              :v="v$.newUser.document.number"
-              label="Номер"
-              placeholder="Номер"
-              className="w-120"
+              v-model="newUser.firstName"
+              :v="v$.newUser.firstName"
+              label="Имя"
+              placeholder="Введите имя"
+              required
+            />
+            <UIInput
+              v-model="newUser.middleName"
+              :v="v$.newUser.middleName"
+              label="Отчество"
+              placeholder="Введите отчеству"
+            />
+            <UIInput
+              v-model="newUser.phone"
+              :v="v$.newUser.phone"
+              label="Номер телефона"
+              placeholder="+7 777 777 77 77"
+              mask="+7 (###) ### ## ##"
+              required
+            />
+          </div>
+          <div class="flex-column gap-16">
+            <UIInput
+              v-model="newUser.dateOfBirth"
+              :v="v$.newUser.dateOfBirth"
+              label="Дата рождения"
+              placeholder="ДД / ММ / ГГГГ"
+              mask="##/##/####"
+              required
+            />
+            <RadioSelect
+              :options="genderOptions"
+              v-model="newUser.gender"
+              label="Пол"
             />
           </div>
         </div>
-        <div class="flex-column gap-16">
-          <UIInput
-            v-model="newUser.document.issuedBy"
-            :v="v$.newUser.document.issuedBy"
-            label="Кем выдан"
-            placeholder="Ввидите кем выдан документ"
-          />
-          <UIInput
-            v-model="newUser.document.issuedDate"
-            :v="v$.newUser.document.issuedDate"
-            label="Дата выдачи"
-            placeholder="ДД / ММ / ГГГГ"
-            mask="##/##/####"
-            required
-          />
+      </section>
+
+      <section>
+        <h4>Адрес проживания</h4>
+        <div class="grid-2">
+          <div class="flex-column gap-16">
+            <UISelect
+              :options="countries"
+              v-model="newUser.country"
+              label="Страна"
+              placeholder="Выберите страну"
+            />
+            <UISelect
+              :options="regions"
+              v-model="newUser.region"
+              label="Область"
+              placeholder="Выберите область"
+            />
+            <UIInput
+              v-model="newUser.city"
+              :v="v$.newUser.city"
+              label="Город"
+              placeholder="Введите город"
+              required
+            />
+          </div>
+          <div class="flex-column gap-16">
+            <UIInput
+              v-model="newUser.zipcCode"
+              :v="v$.newUser.zipcCode"
+              label="Индекс"
+              placeholder="Ввидите почтовый индекс"
+            />
+            <UIInput
+              v-model="newUser.address"
+              :v="v$.newUser.address"
+              label="Адрес (Улица и дом)"
+              placeholder="например, ул. Ленина 123"
+            />
+          </div>
         </div>
+      </section>
+
+      <section>
+        <h4>Данные личного документа</h4>
+        <div class="grid-2">
+          <div class="flex-column gap-16">
+            <UISelect
+              :options="documentTypes"
+              v-model="newUser.document.type"
+              :v="v$.newUser.document.type"
+              label="Тип документа"
+              placeholder="Выберите тип документа"
+              required
+            />
+            <div class="flex gap-16">
+              <UIInput
+                v-model="newUser.document.series"
+                :v="v$.newUser.document.series"
+                label="Серия"
+                placeholder="Серия"
+                className="w-80"
+              />
+              <UIInput
+                v-model="newUser.document.number"
+                :v="v$.newUser.document.number"
+                label="Номер"
+                placeholder="Номер"
+                className="w-120"
+              />
+            </div>
+          </div>
+          <div class="flex-column gap-16">
+            <UIInput
+              v-model="newUser.document.issuedBy"
+              :v="v$.newUser.document.issuedBy"
+              label="Кем выдан"
+              placeholder="Ввидите кем выдан документ"
+            />
+            <UIInput
+              v-model="newUser.document.issuedDate"
+              :v="v$.newUser.document.issuedDate"
+              label="Дата выдачи"
+              placeholder="ДД / ММ / ГГГГ"
+              mask="##/##/####"
+              required
+            />
+          </div>
+        </div>
+      </section>
+      <div class="form-button">
+        <UIButton type="submit" className="gradient">Добавить</UIButton>
       </div>
-    </section>
-    <div class="form-button">
-      <UIButton type="submit" className="gradient">Добавить</UIButton>
-    </div>
-  </form>
+    </form>
+    <UIModal
+      :isOpen="isSuccessMessageActive"
+      @toggle="closeSuccessMessageModal"
+    >
+      <SuccessMessage
+        message="Клиент успешно создан!"
+        messageSub="Вы можете посмотреть его на странице Клиентов"
+      />
+    </UIModal>
+  </div>
 </template>
 
 <script>
@@ -149,39 +162,53 @@ import UIInput from "./UI/UIInput.vue";
 import UIButton from "./UI/UIButton.vue";
 import UISelect from "./UI/UISelect.vue";
 import RadioSelect from "./UI/RadioSelect.vue";
+import UIModal from "./UI/UIModal.vue";
+import SuccessMessage from "./SuccessMessage.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { countries } from "../../helpers/countries";
 import { DMYFormat } from "../../helpers/validators/date";
 import { OnlyAlphaAndNumbers } from "../../helpers/validators/type";
 
+function createNewUser() {
+  return {
+    lastName: null,
+    firstName: null,
+    middleName: null,
+    phone: null,
+    dateOfBirth: null,
+    gender: null,
+    country: null,
+    region: null,
+    city: null,
+    zipcCode: null,
+    address: null,
+    document: {
+      type: null,
+      series: null,
+      number: null,
+      issuedBy: null,
+      issuedDate: null,
+    },
+  };
+}
+
 export default {
   name: "AddClientForm",
-  components: { UIInput, UIButton, UISelect, RadioSelect },
+  components: {
+    UIInput,
+    UIButton,
+    UISelect,
+    UIModal,
+    RadioSelect,
+    SuccessMessage,
+  },
   setup: () => ({ v$: useVuelidate() }),
   mounted() {},
   data() {
     return {
-      newUser: {
-        lastName: null,
-        firstName: null,
-        middleName: null,
-        phone: null,
-        dateOfBirth: null,
-        gender: null,
-        country: null,
-        region: null,
-        city: null,
-        zipcCode: null,
-        address: null,
-        document: {
-          type: null,
-          series: null,
-          number: null,
-          issuedBy: null,
-          issuedDate: null,
-        },
-      },
+      isSuccessMessageActive: false,
+      newUser: createNewUser(),
       genderOptions: [
         { key: "male", name: "Мужчина" },
         { key: "female", name: "Женщина" },
@@ -241,13 +268,15 @@ export default {
   methods: {
     onSubmit() {
       this.v$.$touch();
-      console.log("onSubmit", this.newUser);
-      if (this.v$.$invalid) {
-        console.log("Form is invalid");
-        return;
-      }
-      console.log("Form is valid");
-      console.log("onSubmit", this.newUser);
+      if (this.v$.$invalid) return;
+
+      this.isSuccessMessageActive = true;
+      console.log("Submitted:", this.newUser);
+    },
+    closeSuccessMessageModal() {
+      this.isSuccessMessageActive = false;
+      this.newUser = createNewUser();
+      this.v$.$reset();
     },
   },
   watch: {
