@@ -75,6 +75,7 @@ export default {
 
 <style lang="sass" scoped>
 @use "@/assets/style/variables.sass" as *
+
 .select
     position: relative
     max-width: 300px

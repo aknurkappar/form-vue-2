@@ -58,7 +58,9 @@ export default {
       @media (max-width: $phone)
         grid-template-columns: auto
     &-label
+      margin-bottom: 4px
       font-size: 12px
       color: $blue-dark
       font-weight: 400
+      margin-bottom: 4px
 </style>

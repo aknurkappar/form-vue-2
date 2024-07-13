@@ -91,6 +91,7 @@ input:focus
     margin: 0.2
     outline: none
     border: 1.3px solid $blue-light
+
 input:placeholder
     color: $grey
 

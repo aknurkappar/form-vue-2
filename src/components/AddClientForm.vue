@@ -211,7 +211,6 @@ export default {
     SuccessMessage,
   },
   setup: () => ({ v$: useVuelidate() }),
-  mounted() {},
   data() {
     return {
       isSuccessMessageActive: false,
@@ -312,6 +311,11 @@ export default {
     margin: 20px 0
     justify-content: center
     align-content: center
+
+    h2
+      @media (max-width: $phone)
+        font-size: 20px
+        text-align: center
 
   section
     padding: 30px
