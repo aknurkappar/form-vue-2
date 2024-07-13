@@ -31,7 +31,7 @@
         mask="##/##/####"
         required
       />
-      <RadioSelector :options="[]" />
+      <RadioSelector />
     </section>
 
     <section>
@@ -40,7 +40,6 @@
         v-model="newUser.phone"
         label="Номер телефона"
         placeholder="+7 777 777 77 77"
-        required
         mask="+7 (###) ### ## ##"
       />
       <UIInput label="Индекс" placeholder="Ввидите фамилия клиента" />
@@ -53,7 +52,7 @@
 
     <section>
       <h4>Данные личного документа</h4>
-      <UIInput label="Фамилия" placeholder="Ввидите фамилия клиента" required />
+      <UIInput label="Фамилия" placeholder="Ввидите фамилия клиента" />
     </section>
 
     <UIButton type="submit" className="gradient">Добавить</UIButton>
@@ -73,6 +72,7 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   mounted() {
     console.log("mounted", this.v$.newUser.dateOfBirth.$invalid);
+    console.log(this.genderOptions);
   },
   data() {
     return {
@@ -112,6 +112,7 @@ export default {
   methods: {
     onSubmit() {
       this.v$.$touch();
+      console.log("onSubmit", this.newUser);
       if (this.v$.$invalid) {
         console.log("Form is invalid");
         return;
